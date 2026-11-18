@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: blog
+
+  datasource:
+    url: jdbc:postgresql://localhost:5433/blog
+    username: demo
+    password: demo
+
+  jpa:
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        format_sql: true
+        query.fail_on_pagination_over_collection_fetch: true
+        session_factory.statement_inspector: com.productionready.blog.config.QueryCounter
+        jdbc.batch_size: 50
+        order_inserts: true
+
+demo:
+  seed:
+    posts: 1000
