@@ -20,7 +20,12 @@ public class PostService {
     }
 
     public List<PostResponse> findSimplePage(int minUpvotes, Pageable pageable) {
-        return posts.findAllWithCommentsSimple(minUpvotes, pageable).stream()
+
+        List<Long> ids = posts.findPostIds(minUpvotes, pageable);
+
+        if (ids.isEmpty()) return List.of();
+
+        return posts.findAllWithCommentsByIds(ids).stream()
                 .map(PostResponse::from)
                 .toList();
     }
